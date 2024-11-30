@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: Aplicação do método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 
@@ -42,7 +42,7 @@ import numpy as np
 from leitura_dados_ocupacao_OF2_otimizado import *
 from leitura_dados_ruidos_OF2_otimizado import *
 
-### ------------------------------------------------- 1) FUNÇÃO PARA O PULSO DE REFERÊNCIA ----------------------------------------------------- ###
+### ------------------------------------------ 1) FUNÇÃO PARA O PULSO DE REFERÊNCIA ------------------------------------------------- ###
 
 # Definição da função para o vetor pulso de referência de acordo com o janelamento.
 def pulso_referencia(n_janelamento): 
@@ -113,9 +113,9 @@ def pulso_referencia(n_janelamento):
     # A função retorna o vetor pulso de referência.
     return vetor_pulso_referencia
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------------------------------------------- 2) FUNÇÃO PARA A DERIVADA DO PULSO DE REFERÊNCIA ----------------------------------------------- ###
+### ------------------------------------ 2) FUNÇÃO PARA A DERIVADA DO PULSO DE REFERÊNCIA ------------------------------------------- ###
 
 # Definição da função para o vetor da derivada do pulso de referência de acordo com o janelamento.
 def derivada_pulso_referencia(n_janelamento):
@@ -186,9 +186,9 @@ def derivada_pulso_referencia(n_janelamento):
     # A função retorna o vetor pulso de referência.
     return vetor_derivada_pulso_referencia
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###   
+### --------------------------------------------------------------------------------------------------------------------------------- ###   
 
-### ------------------------------------------------ 3) FUNÇÃO PARA A MATRIZ DE COEFICIENTES --------------------------------------------------- ###   
+### -------------------------------------------- 3) FUNÇÃO PARA A MATRIZ DE COEFICIENTES -------------------------------------------- ###   
 
 # Definição da função para a construção da matriz de coeficientes.
 def matriz_coeficientes(n_janelamento, Matriz_Covariancia, vetor_pulso_referencia, vetor_derivada_pulso_referencia):
@@ -200,7 +200,7 @@ def matriz_coeficientes(n_janelamento, Matriz_Covariancia, vetor_pulso_referenci
     vetor_unitario_n_janelamento = np.ones(n_janelamento)
     
     # Definição da matriz M2 com colunas extras.
-    Matriz_M2 = np.column_stack((vetor_pulso_referencia, vetor_derivada_pulso_referencia, vetor_unitario_n_janelamento))
+    Matriz_M2 = np.column_stack((-1*vetor_pulso_referencia, -1*vetor_derivada_pulso_referencia, -1*vetor_unitario_n_janelamento))
     
     # Acréscimo de colunas na matriz de covariância para formar a matriz M2.
     Matriz_M1_M2 = np.hstack((Matriz_M1, Matriz_M2))
@@ -226,9 +226,9 @@ def matriz_coeficientes(n_janelamento, Matriz_Covariancia, vetor_pulso_referenci
     # A função retorna a matriz de coeficientes.
     return Matriz_Coeficientes
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --------------------------------------------- 4) FUNÇÃO PARA O VETOR DE RESPOSTA ----------------------------------------------------------- ###
+### ------------------------------------------ 4) FUNÇÃO PARA O VETOR DE RESPOSTA --------------------------------------------------- ###
 
 # Definição da função para a construção do vetor de resposta.
 def vetor_resposta(n_janelamento, parametro_desejado):
@@ -260,9 +260,9 @@ def vetor_resposta(n_janelamento, parametro_desejado):
     # A função retorna o vetor de resposta.
     return vetor_resposta
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ----------------------------------------------- 5) FUNÇÃO PARA O MÉTODO OF2 OTIMIZADO ------------------------------------------------------ ###
+### ------------------------------------------ 5) FUNÇÃO PARA O MÉTODO OF2 OTIMIZADO ------------------------------------------------ ###
 
 # Definição da função para o método OF2 otimizado.
 def metodo_OF2_otimizado(parametro, n_janelamento, Matriz_Pulsos_Sinais_Treino_Janelado, Matriz_Pulsos_Sinais_Teste_Janelado, vetor_parametro_referencia_teste_janelado, valor_minimo_amplitude_processo_fase, vetor_amplitude_referencia_treino_janelado):
@@ -308,7 +308,7 @@ def metodo_OF2_otimizado(parametro, n_janelamento, Matriz_Pulsos_Sinais_Treino_J
     
         # Definição do vetor de pesos da amplitude versus fase a partir do vetor de incógnitas.
         vetor_pesos_amplitude_versus_fase_OF2_otimizado = vetor_incognitas_amplitude_versus_fase[:-3]
-    
+        
         # Definição do vetor com os multiplicadores de Lagrange do vetor de incógnitas da amplitude versus fase.
         vetor_multiplicadores_Lagrange_amplitude_versus_fase = vetor_incognitas_amplitude_versus_fase[-3:]
     
@@ -399,4 +399,4 @@ def metodo_OF2_otimizado(parametro, n_janelamento, Matriz_Pulsos_Sinais_Treino_J
     # A função retorna a lista lista_erro_estimacao_parametro.
     return lista_erro_estimacao_parametro
  
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###

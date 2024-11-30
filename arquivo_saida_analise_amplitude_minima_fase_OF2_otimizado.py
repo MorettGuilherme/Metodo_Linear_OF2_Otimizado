@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: implementação da validação cruzada K-Fold para o método OF2 otimizado para a análise de como o valor mínimo da amplitude influencia na estimação da fase.
 
@@ -36,7 +36,7 @@ from termcolor import colored
 from metodo_OF2_otimizado import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -46,8 +46,7 @@ titulo_programa = colored("Geração de arquivos de saída pela técnica de vali
 # Impressão do título do programa.
 print(titulo_programa)
 
-
-### ---- 1) INSTRUÇÃO PARA A IMPRESSÃO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA FASE EM UM ARQUIVO DE SAÍDA PELO MÉTODO OF2 OTIMIZADO ------ ###
+### --- 1) INSTRUÇÃO PARA A IMPRESSÃO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA FASE EM UM ARQUIVO DE SAÍDA PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da instrução para a impressão em um arquivo de saída, os dados estatísticos do erro de estimação da fase pelo método OF2 otimizado.
 def arquivo_saida_dados_estatisticos_erro_estimacao_fase_OF2_otimizado(n_ocupacao, n_janelamento_ideal_amplitude_estimada, media_erro_estimacao_fase, var_erro_estimacao_fase, desvio_padrao_erro_estimacao_fase, tamanho_vetor_estimacao_fase, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, dado_estatistico):
@@ -69,34 +68,51 @@ def arquivo_saida_dados_estatisticos_erro_estimacao_fase_OF2_otimizado(n_ocupaca
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio.
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{valor_minimo_amplitude_estimada_processo_fase},{media_erro_estimacao_fase},{var_erro_estimacao_fase},{desvio_padrao_erro_estimacao_fase},{tamanho_vetor_estimacao_fase}\n")
         
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PARA A FASE PELO MÉTODO OF2 OTIMIZADO ------------------------------- ###
+### ------------------ 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PARA A FASE PELO MÉTODO OF2 OTIMIZADO --------------------------- ###
 
 # Definição da instrução da técnica de validação cruzada K-Fold para a fase pelo método OF2 otimizado.
 def K_fold_OF2_otimizado_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitude_estimada, Matriz_Pulsos_Sinais_Janelado, vetor_fase_referencia_janelado, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, vetor_amplitude_referencia_janelado):
@@ -227,15 +243,12 @@ def K_fold_OF2_otimizado_analise_fase(parametro, n_ocupacao, n_janelamento_ideal
     # Salva a informação dos dados estatísticos do desvio padrão do erro de estimação do fase em seus respectivos arquivos de saída.
     arquivo_saida_dados_estatisticos_erro_estimacao_fase_OF2_otimizado(n_ocupacao, n_janelamento_ideal_amplitude_estimada, media_DP_blocos_erro_estimacao_fase, var_DP_blocos_erro_estimacao_fase, DP_DP_blocos_erro_estimacao_fase, media_tamanho_blocos_erro_estimacao_fase, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, dado_estatistico = "DP")
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ### 
+### --------------------------------------------------------------------------------------------------------------------------------- ### 
 
-### ----------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------------- ###
+### -------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO --------------------------------------------------- ###
   
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_K_fold_analise_fase_OF2_otimizado():
-    
-    # A variável n_janelamento_ideal_amplitude_estimada recebe o valor ideal para a amplitude estimada obtido pela análise gráfica do K-Fold.
-    n_janelamento_ideal_amplitude_estimada = int(input("Digite o número do janelamento ideal para o parâmetro estimado desejado: "))
     
     # A variável ocupacao_inicial armazena o valor inicial da ocupação que é 10.
     # Obs.: ao considerar um valor mínimo para a amplitude, a estimação da fase para a ocupação 0 fica impossibilitada.
@@ -261,9 +274,12 @@ def principal_K_fold_analise_fase_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
+        
+    # A variável n_janelamento_ideal_amplitude_estimada recebe o valor ideal para a amplitude estimada obtido pela análise gráfica do K-Fold.
+    n_janelamento_ideal_amplitude_estimada = int(input("Digite o número do janelamento ideal para o parâmetro estimado desejado: "))
         
     # Se a variável tipo_opcao_fase for igual a 1.
     if tipo_opcao_fase == 1:
@@ -314,9 +330,9 @@ def principal_K_fold_analise_fase_OF2_otimizado():
                 K_fold_OF2_otimizado_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitude_estimada, Matriz_Pulsos_Sinais_Fase_Janelado, vetor_fase_referencia_janelado, valor_minimo_amplitude_processo_fase, tipo_fase, vetor_amplitude_referencia_janelado)
                 
 # Chamada da instrução principal do código.
-principal_K_fold_analise_fase_OF2_otimizado()       
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+principal_K_fold_analise_fase_OF2_otimizado()
+       
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
-
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

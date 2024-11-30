@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: geração de arquivos de saída baseados nos dados estatísticos dos histogramas do erro de estimação da amplitude, fase ou pedestal pelo método OF2 otimizado.
 
@@ -38,9 +38,7 @@ from termcolor import colored
 from metodo_OF2_otimizado import * 
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
-
-# Título do programa.
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # A variável titulo_programa armazena o título em negrito.
 titulo_programa = colored("Geração de arquivos de saída baseados nos dados estatísticos dos histogramas do erro de estimação da amplitude, fase, ou pedestal pelo método Optimal Filtering (OF2 Otimizado):\n", attrs=["bold"])
@@ -48,7 +46,7 @@ titulo_programa = colored("Geração de arquivos de saída baseados nos dados es
 # Impressão do título do programa.
 print(titulo_programa)
 
-### -------- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO ------- ###
+### --- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da função para o cálculo dos dados estatísticos do erro de estimação da amplitude, fase ou pedestal pelo método OF2 otimizado.
 def dados_estatisticos_erro_estimacao_parametro_OF2_otimizado(lista_erro_estimacao_parametro):
@@ -68,7 +66,7 @@ def dados_estatisticos_erro_estimacao_parametro_OF2_otimizado(lista_erro_estimac
     # A função retorna a média, a variância e o desvio padrão dos dados do erro de estimação da amplitude, fase ou pedestal.
     return media_erro_estimacao_parametro, var_erro_estimacao_parametro, desvio_padrao_erro_estimacao_parametro
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 ### --- 2) INSTRUÇÃO PARA A IMPRESSÃO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL EM UM ARQUIVO DE SAÍDA PELO MÉTODO OF2 OTIMIZADO --- ###
 
@@ -92,36 +90,53 @@ def arquivo_saida_dados_estatisticos_erro_estimacao_parametro_OF2_otimizado(para
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio.
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+                    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{n_ocupacao},{media_erro_estimacao_parametro},{var_erro_estimacao_parametro},{desvio_padrao_erro_estimacao_parametro}\n")
         
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ----------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO  ---------------------------------------------------------------- ###
+### -------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO --------------------------------------------------------- ###
 
-# Definição da instrução principal (main) para esse código.
+# Definição da instrução principal do código.
 def principal_arquivo_saida_dados_estatisticos_OF2_otimizado():
     
     # A variável valor_pedestal_referencia armazena a quantidade de referência do pedestal.
@@ -200,8 +215,10 @@ def principal_arquivo_saida_dados_estatisticos_OF2_otimizado():
 # Chamada da instrução principal do código.
 principal_arquivo_saida_dados_estatisticos_OF2_otimizado()
 
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")   
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")   
 
 
             

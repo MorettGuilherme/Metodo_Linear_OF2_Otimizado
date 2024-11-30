@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: gráfico dos dados estatísticos do erro de estimação da fase para uma determinada ocupação versus o valor mínimo da amplitude de acordo com o janelamento ideal para a amplitude estimada pelo método OF2 otimizado.
 
@@ -29,9 +29,7 @@ import os
 from termcolor import colored
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
-
-# Título do programa.
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # A variável titulo_programa armazena o título em negrito.
 titulo_programa = colored("Plote do gráfico do dado estatístico da análise do erro de estimação da fase pelo método Optimal Filtering (OF2 Otimizado):\n", attrs=["bold"])
@@ -39,7 +37,7 @@ titulo_programa = colored("Plote do gráfico do dado estatístico da análise do
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ----- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA ANÁLISE DO ERRO DE ESTIMAÇÃO DA FASE PARA UMA DADA OCUPAÇÃO PELO MÉTODO OF2 OTIMIZADO ---------- ###
+### --- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA ANÁLISE DO ERRO DE ESTIMAÇÃO DA FASE PARA UMA DADA OCUPAÇÃO PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da função para a leitura dos dados estatísticos da análise do erro de estimação da fase pelo método OF2 otimizado.
 def leitura_dados_estatisticos_analise_fase_OF2_otimizado(n_ocupacao, n_janelamento_ideal_amplitude_estimada, dado_estatistico, tipo_fase):
@@ -74,9 +72,9 @@ def leitura_dados_estatisticos_analise_fase_OF2_otimizado(n_ocupacao, n_janelame
     # A função retorna a matriz Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao.
     return Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ---------- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO ANÁLISE DA ESTIMAÇÃO DA FASE PARA UMA DETERMINADA OCUPAÇÃO PELO MÉTODO OF2 OTIMIZADO ----------- ###
+### --- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO ANÁLISE DA ESTIMAÇÃO DA FASE PARA UMA DETERMINADA OCUPAÇÃO PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da instrução para o plote do gráfico do dado estatístico da análise da estimação da fase para uma determinada ocupação pelo método OF2 otimizado.
 def grafico_dado_estatistico_analise_fase_OF2_otimizado(n_ocupacao, opcao_dado_estatistico, Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao):
@@ -107,6 +105,8 @@ def grafico_dado_estatistico_analise_fase_OF2_otimizado(n_ocupacao, opcao_dado_e
     
     # Comando para o nome do eixo das abscissas.
     plt.xlabel("Valores mínimos da amplitude estimada (ADC Count)", fontsize = 18)
+    
+    # Comando que define o tamanho dos números do eixo das abscissas.
     plt.xticks(fontsize = 16)
     
     # Caso a variável opcao_dado_estatistico seja 1 (média).
@@ -181,11 +181,11 @@ def grafico_dado_estatistico_analise_fase_OF2_otimizado(n_ocupacao, opcao_dado_e
     # Comando para o plote.
     plt.show()
         
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###        
+### --------------------------------------------------------------------------------------------------------------------------------- ###        
         
-### ---------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ------------------------------------------------------ ###
+### ------------------------------------------ 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_grafico_dado_estatistico_analise_fase_OF2_otimizado():
     
     # A variável tipo_opcao_fase armazena a escolha digitada pelo usuário para o processo de estimação da fase.
@@ -199,7 +199,7 @@ def principal_grafico_dado_estatistico_analise_fase_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -229,7 +229,7 @@ def principal_grafico_dado_estatistico_analise_fase_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção de dado estatístico é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1) 
         
@@ -269,7 +269,7 @@ def principal_grafico_dado_estatistico_analise_fase_OF2_otimizado():
         # Exibição de uma mensagem de alerta de que a quantidade de janelamento solicitada é inválida.
         print("Quantidade de ocupações inválida! Opções de ocupações de 10 a 100 com incremento de 10.\nem virtude do alto índice de valores baixos para a amplitude estimada na ocupação 0, esta não foi possível analisar.")
         
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -281,6 +281,8 @@ def principal_grafico_dado_estatistico_analise_fase_OF2_otimizado():
 # Chamada da instrução principal do código.
 principal_grafico_dado_estatistico_analise_fase_OF2_otimizado()
 
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
     

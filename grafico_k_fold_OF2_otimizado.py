@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: construção do gráfico da validação cruzada K-Fold para o método OF2 otimizado para a estimação da amplitude, fase ou pedestal.
 
@@ -23,7 +23,7 @@ Obs.: esse gráfico mostra a média do dado estatístico (média, variância e d
 Entrada: matriz com os dados da ocupação organizados.
 Saída: nada.
 
-4) Instrução principal (main) do código.
+4) Instrução principal do código.
 Entrada: nada.
 Saída: nada.
 """
@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 from termcolor import colored
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -45,7 +45,7 @@ titulo_programa = colored("Plote do gráfico da validação cruzada K-Fold para 
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ----------------- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO -------------------- ###
+### ----------- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO --------------- ###
 
 # Definição da função para a leitura dos dados estatísticos do K-Fold pelo método OF2 otimizado.
 def leitura_dados_estatisticos_k_fold_OF2_otimizado(parametro, n_ocupacao, dado_estatistico):
@@ -80,9 +80,9 @@ def leitura_dados_estatisticos_k_fold_OF2_otimizado(parametro, n_ocupacao, dado_
     # A função retorna a matriz Matriz_Dados_K_Fold.
     return Matriz_Dados_K_Fold
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ----------------- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO GRÁFICO DO TIPO A DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO ---------------- ###
+### ---------- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO GRÁFICO DO TIPO A DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO ------------ ###
 
 # Definição da instrução para a construção do gráfico tipo A pela validação cruzada K-Fold para o método OF2 otimizado.
 def grafico_A_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, Matriz_Dados_K_Fold_OC_10, Matriz_Dados_K_Fold_OC_20, Matriz_Dados_K_Fold_OC_30, Matriz_Dados_K_Fold_OC_40, Matriz_Dados_K_Fold_OC_50, Matriz_Dados_K_Fold_OC_60, Matriz_Dados_K_Fold_OC_70, Matriz_Dados_K_Fold_OC_80, Matriz_Dados_K_Fold_OC_90, Matriz_Dados_K_Fold_OC_100):
@@ -211,7 +211,7 @@ def grafico_A_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, M
     plt.errorbar(janelamento, Matriz_Dados_Medias_K_Fold_OC_100, yerr = Matriz_Dados_Erros_K_Fold_OC_100, color = 'red', linestyle = '--', marker = 'o', markersize = 3, label = '100')
     
     # Ajuste esse limite do eixo vertical de forma que a legenda se encaixe corretamente no gráfico.
-    #plt.ylim(-5, 100)
+    #plt.ylim(-20, 120)
     
     # Comando para o grid do gráfico.
     plt.grid()
@@ -222,9 +222,9 @@ def grafico_A_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, M
     # Comando para a exibição do gráfico.
     plt.show()  
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------------------ 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO GRÁFICO DO TIPO B DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO --------------- ###
+### ----------- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO GRÁFICO DO TIPO B DA VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO ----------- ###
 
 # Definição da instrução para a construção do gráfico do tipo B pela validação cruzada K-Fold para o método OF2 otimizado.
 def grafico_B_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, Matriz_Dados_K_Fold_OC_10, Matriz_Dados_K_Fold_OC_20, Matriz_Dados_K_Fold_OC_30, Matriz_Dados_K_Fold_OC_40, Matriz_Dados_K_Fold_OC_50, Matriz_Dados_K_Fold_OC_60, Matriz_Dados_K_Fold_OC_70, Matriz_Dados_K_Fold_OC_80, Matriz_Dados_K_Fold_OC_90, Matriz_Dados_K_Fold_OC_100):
@@ -339,7 +339,7 @@ def grafico_B_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, M
     plt.errorbar(ocupacoes, Matriz_Dados_K_Fold_J19_OC, yerr = Matriz_Dados_K_Fold_Erros_J19_OC, color = 'red', linestyle = '--', marker = 'o', markersize=3, label = '19')
     
     # Ajuste esse limite do eixo vertical de forma que a legenda se encaixe corretamente no gráfico.
-    #plt.ylim(-5, 100)
+    plt.ylim(-10, 100)
     
     # Comando para o grid do gráfico.
     plt.grid()
@@ -350,11 +350,11 @@ def grafico_B_k_fold_OF2_otimizado(parametro, opcao, Matriz_Dados_K_Fold_OC_0, M
     # Comando para a exibição do gráfico.
     plt.show()  
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ---------------------------------------------------- 4) INSTRUÇÃO PRINCIPAL DO CÓDIGO ------------------------------------------------------ ###
+### -------------------------------------------- 4) INSTRUÇÃO PRINCIPAL DO CÓDIGO --------------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_grafico_k_fold_OF2_otimizado():
     
     # Impressão de mensagem no terminal.
@@ -371,7 +371,7 @@ def principal_grafico_k_fold_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -389,7 +389,7 @@ def principal_grafico_k_fold_OF2_otimizado():
         
         # Exibição de uma mensagem de alerta de que o tipo de gráfico solicitado é inválido.
         print("Por favor digite uma tipo válido de gráfico: A ou B!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -407,7 +407,7 @@ def principal_grafico_k_fold_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -478,11 +478,11 @@ def principal_grafico_k_fold_OF2_otimizado():
     
         # Chamada da função grafico_B_k_fold_OF2_otimizado.
         grafico_B_k_fold_OF2_otimizado(parametro, opcao_dado_estatistico, Matriz_Dados_K_Fold_OC_0, Matriz_Dados_K_Fold_OC_10, Matriz_Dados_K_Fold_OC_20, Matriz_Dados_K_Fold_OC_30, Matriz_Dados_K_Fold_OC_40, Matriz_Dados_K_Fold_OC_50, Matriz_Dados_K_Fold_OC_60, Matriz_Dados_K_Fold_OC_70, Matriz_Dados_K_Fold_OC_80, Matriz_Dados_K_Fold_OC_90, Matriz_Dados_K_Fold_OC_100)
-    
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Chamada da instrução principal do código.
 principal_grafico_k_fold_OF2_otimizado()
 
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")   
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")   

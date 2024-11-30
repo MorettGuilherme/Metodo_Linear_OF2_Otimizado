@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: análise do erro de estimação do parâmetro da amplitude, fase ou pedestal pelo método OF2 otimizado.
 
@@ -40,9 +40,7 @@ from termcolor import colored
 from metodo_OF2_otimizado import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
-
-# Título do programa.
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # A variável titulo_programa armazena o título em negrito.
 titulo_programa = colored("Análise do erro de estimação da amplitude, fase ou pedestal pelo método Optimal Filtering (OF2 Otimizado):\n", attrs=["bold"])
@@ -50,7 +48,7 @@ titulo_programa = colored("Análise do erro de estimação da amplitude, fase ou
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ------- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 Otimizado -------- ###
+### --- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 Otimizado ---- ###
 
 # Definição da função para o cálculo dos dados estatísticos do erro de estimação da amplitude, fase ou pedestal pelo método OF2 otimizado.
 def dados_estatisticos_erro_estimacao_parametro_OF2_otimizado(lista_erro_estimacao_parametro):
@@ -70,9 +68,9 @@ def dados_estatisticos_erro_estimacao_parametro_OF2_otimizado(lista_erro_estimac
     # A função retorna a média, a variância e o desvio padrão dos dados do erro de estimação da amplitude, fase ou pedestal.
     return media_erro_estimacao_parametro, var_erro_estimacao_parametro, desvio_padrao_erro_estimacao_parametro
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ---- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO A DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO ---- ###
+### --- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO A DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição de instrução para o plot do histograma do tipo A do erro de estimação da amplitude, fase ou pedestal pelo método OF2 otimizado.
 def histograma_A_erro_estimacao_parametro_OF2_otimizado(n_ocupacao, parametro, lista_erro_estimacao_parametro, media_erro_estimacao_parametro, var_erro_estimacao_parametro, desvio_padrao_erro_estimacao_parametro):
@@ -161,9 +159,9 @@ def histograma_A_erro_estimacao_parametro_OF2_otimizado(n_ocupacao, parametro, l
     # Exibição do gráfico.
     plt.show()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ---- 3) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO B DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO ---- ###
+### --- 3) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO B DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição de instrução para o plot dos histogramas do tipo B do erro de estimação da amplitude, fase ou pedestal para diferentes janelamentos para uma dada ocupação pelo método OF2 otimizado.
 def histograma_B_erro_estimacao_parametro_OF2_otimizado(n_ocupacao, parametro, lista_erro_estimacao_parametro_J7, media_erro_estimacao_parametro_J7, var_erro_estimacao_parametro_J7, desvio_padrao_erro_estimacao_parametro_J7, lista_erro_estimacao_parametro_J15, media_erro_estimacao_parametro_J15, var_erro_estimacao_parametro_J15, desvio_padrao_erro_estimacao_parametro_J15, lista_erro_estimacao_parametro_J19, media_erro_estimacao_parametro_J19, var_erro_estimacao_parametro_J19, desvio_padrao_erro_estimacao_parametro_J19):
@@ -280,11 +278,11 @@ def histograma_B_erro_estimacao_parametro_OF2_otimizado(n_ocupacao, parametro, l
     # Exibição do gráfico.
     plt.show()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### -------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO (MAIN) ------------------------------------------------------------- ###
+### ---------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ------------------------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_histograma_erro_estimacao_parametro_OF2_otimizado():
     
     # A variável valor_minimo_amplitude_estimada_processo_fase recebe o valor mínimo para a amplitude que é de cerca de 4,5 ADC Count (três vezes o valor do desvio padrão do ruído eletrônico).
@@ -304,7 +302,7 @@ def principal_histograma_erro_estimacao_parametro_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -340,7 +338,7 @@ def principal_histograma_erro_estimacao_parametro_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção do tipo de histograma é inválida.
         print("A opção do tipo de histograma digitada é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -366,7 +364,7 @@ def principal_histograma_erro_estimacao_parametro_OF2_otimizado():
     
             # Exibição de uma mensagem de alerta de que a quantidade de janelamento solicitada é inválida.
             print("Quantidade de janelamento inválida! Opções de janelamento: 7, 9, 11, 13, 15, 17, 19.")
-            print("---------------------------------------------------------------------------------------------------------------------------------------")
+            print("--------------------------------------------------------------------------------------------------------------------")
             # A execução do programa é interrompida.
             exit(1)
             
@@ -525,9 +523,10 @@ def principal_histograma_erro_estimacao_parametro_OF2_otimizado():
     
         histograma_B_erro_estimacao_parametro_OF2_otimizado(n_ocupacao, parametro, lista_erro_estimacao_parametro_J7, media_erro_estimacao_parametro_J7, var_erro_estimacao_parametro_J7, desvio_padrao_erro_estimacao_parametro_J7, lista_erro_estimacao_parametro_J15, media_erro_estimacao_parametro_J15, var_erro_estimacao_parametro_J15, desvio_padrao_erro_estimacao_parametro_J15, lista_erro_estimacao_parametro_J19, media_erro_estimacao_parametro_J19, var_erro_estimacao_parametro_J19, desvio_padrao_erro_estimacao_parametro_J19)
     
-# Chamada da instrução principal (main) do código.
+# Chamada da instrução principal do código.
 principal_histograma_erro_estimacao_parametro_OF2_otimizado()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

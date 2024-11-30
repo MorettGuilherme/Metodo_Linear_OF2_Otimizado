@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: cálculo do desempenho do método OF2 otimizado para a estimação da amplitude, fase ou pedestal pela validação cruzada K-Fold.
 
@@ -56,9 +56,7 @@ from termcolor import colored
 from metodo_OF2_otimizado import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
-
-# Título do programa.
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # A variável titulo_programa armazena o título em negrito.
 titulo_programa = colored("Geração de arquivos de saída pela técnica de validação cruzada K-Fold para a estimação da amplitude, fase ou pedestal pelo método Optimal Filtering (OF2 Otimizado):\n", attrs=["bold"])
@@ -66,7 +64,7 @@ titulo_programa = colored("Geração de arquivos de saída pela técnica de vali
 # Impressão do título do programa.
 print(titulo_programa)
 
-### -------------------------- 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO OF2 OTIMIZADO ------------------------------ ###
+### ------------------ 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO OF2 OTIMIZADO --------------------------- ###
 
 # Definição da instrução para salvar os dados estatísticos do desempenho do método OF2 otimizado em arquivo de saída.
 def arquivo_saida_dados_desempenho_OF2_otimizado(parametro, n_ocupacao, n_janelamento_ideal, media_dado_desempenho, var_dado_desempenho, DP_dado_desempenho, mecanismo_desempenho):
@@ -89,33 +87,51 @@ def arquivo_saida_dados_desempenho_OF2_otimizado(parametro, n_ocupacao, n_janela
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+                    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{n_ocupacao},{media_dado_desempenho},{var_dado_desempenho},{DP_dado_desempenho}\n")
+        
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### -------------------------- 2) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO DE ESTIMAÇÃO (MEAN SQUARED ERROR - EME) ---------------------------------- ###
+### -------------------- 2) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO DE ESTIMAÇÃO (MEAN SQUARED ERROR - EME) ----------------------------- ###
 
 # Definição da função para o cálculo do erro médio de estimação (EME).
 def EME(numero_elementos_bloco, bloco_erro_estimacao):
@@ -126,9 +142,9 @@ def EME(numero_elementos_bloco, bloco_erro_estimacao):
     # A função retorna o valor do EME.
     return valor_EME
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --------------------------- 3) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO QUADRÁTICO (MEAN SQUARED ERROR - MSE) ----------------------------------- ###
+### ----------------------- 3) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO QUADRÁTICO (MEAN SQUARED ERROR - MSE) ---------------------------- ###
 
 # Definição da função para o cálculo do erro médio quadrático (MSE).
 def MSE(numero_elementos_bloco, bloco_erro_estimacao):
@@ -142,9 +158,9 @@ def MSE(numero_elementos_bloco, bloco_erro_estimacao):
     # A função retorna o valor do MSE.
     return valor_MSE
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --------------------------- 4) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO ABSOLUTO (MEAN ABSOLUTE ERROR - MAE) ------------------------------------ ###
+### ---------------------- 4) FUNÇÃO PARA O CÁLCULO DO ERRO MÉDIO ABSOLUTO (MEAN ABSOLUTE ERROR - MAE) ------------------------------ ###
 
 # Definição da função para o cálculo do erro médio absoluto (MAE).
 def MAE(numero_elementos_bloco, bloco_erro_estimacao):
@@ -158,9 +174,9 @@ def MAE(numero_elementos_bloco, bloco_erro_estimacao):
     # A função retorna o valor do MAE.
     return valor_MAE
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --------------------------- 5) FUNÇÃO PARA O CÁLCULO DA RELAÇÃO SINAL-RUÍDO (SIGNAL-TO-NOISE RATIO - SNR) ---------------------------------- ###
+### ------------------------ 5) FUNÇÃO PARA O CÁLCULO DA RELAÇÃO SINAL-RUÍDO (SIGNAL-TO-NOISE RATIO - SNR) -------------------------- ###
 
 # Definição da função para o cálculo da relação sinal-ruído (Signal-to-Noise Ratio - SNR).
 def SNR(bloco_parametro_referencia, bloco_erro_estimacao):
@@ -177,9 +193,9 @@ def SNR(bloco_parametro_referencia, bloco_erro_estimacao):
     # A função retorna o valor do SNR.
     return valor_SNR
 
-## --------------------------------------------------------------------------------------------------------------------------------------------- ###
+## ---------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --------------------------------------------- 6) FUNÇÃO PARA O CÁLCULO DO DESVIO PADRÃO (DP) ----------------------------------------------- ###
+### -------------------------------------- 6) FUNÇÃO PARA O CÁLCULO DO DESVIO PADRÃO (DP) ------------------------------------------- ###
 
 # Definição da função para o cálculo do desvio padrão.
 def DP(numero_elementos_bloco, bloco_erro_estimacao):
@@ -193,9 +209,9 @@ def DP(numero_elementos_bloco, bloco_erro_estimacao):
     # A função retorna o valor valor_DP.
     return valor_DP
 
-## --------------------------------------------------------------------------------------------------------------------------------------------- ###
+## ---------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------------- 7) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD ADAPTADA PARA O CÁLCULO DO DESEMPENHO DO MÉTODO OF2 OTIMIZADO ------------------- ###
+### ---------- 7) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD ADAPTADA PARA O CÁLCULO DO DESEMPENHO DO MÉTODO OF2 OTIMIZADO ----------- ###
 
 # Definição da instrução da técnica de validação cruzada K-Fold para o cálculo do desempenho do método OF2 otimizado.
 def K_fold_desempenho_OF2_otimizado(parametro, n_ocupacao, n_janelamento_ideal, opcao_avaliacao_desempenho, Matriz_Pulsos_Sinais_Janelado, vetor_parametro_referencia_janelado, valor_minimo_amplitude_processo_fase,  vetor_amplitude_referencia_janelado):
@@ -356,11 +372,11 @@ def K_fold_desempenho_OF2_otimizado(parametro, n_ocupacao, n_janelamento_ideal, 
     # Salva as informações dos dados estatísticos da análise do desempenho do método OF2 otimizado.
     arquivo_saida_dados_desempenho_OF2_otimizado(parametro, n_ocupacao, n_janelamento_ideal, media_desempenho, var_desempenho, DP_desempenho, mecanismo_desempenho)   
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ### 
+### --------------------------------------------------------------------------------------------------------------------------------- ### 
 
-### ---------------------------------------------- 8) INSTRUÇÃO PRINCIPAL DO CÓDIGO (MAIN) ----------------------------------------------------- ###
+### ------------------------------------------- 8) INSTRUÇÃO PRINCIPAL DO CÓDIGO ---------------------------------------------------- ###
   
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_desempenho_OF2_otimizado():
     
     # Impressão de mensagem no terminal.
@@ -394,7 +410,7 @@ def principal_desempenho_OF2_otimizado():
         
         # Exibição de mensagem de alerta que a opção é inválida.
         print("Por favor digite uma opção válida!\n")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -407,7 +423,7 @@ def principal_desempenho_OF2_otimizado():
     # A variável incremento_ocupacao armazena o valor de incremento entre as ocupações que é 10.
     incremento_ocupacao = 10
     
-    # A variável n_janelamento_ideal recebe o valor do janelamento ideal do método OF2 Simples.
+    # A variável n_janelamento_ideal recebe o valor do janelamento ideal do método OF2 Otimizado.
     # Obs.: essa análise deve ser realizada previamento pela interpretação dos gráficos gerados pelo K-Fold (grafico_k_fold_BLUE1).
     n_janelamento_ideal = int(input("Digite o número do janelamento ideal para o parâmetro estimado desejado: "))
     
@@ -482,8 +498,9 @@ def principal_desempenho_OF2_otimizado():
     print(f"Tempo de execução: {tempo_execucao}")
      
 # Chamada da instrução principal do código.
-principal_desempenho_OF2_otimizado()       
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+principal_desempenho_OF2_otimizado()
+       
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

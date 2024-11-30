@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: implementação da validação cruzada K-Fold para o método OF2 otimizado para a estimação da amplitude, fase ou pedestal.
 
@@ -36,9 +36,7 @@ from termcolor import colored
 from metodo_OF2_otimizado import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
-
-# Título do programa.
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # A variável titulo_programa armazena o título em negrito.
 titulo_programa = colored("Geração de arquivos de saída pela técnica de validação cruzada K-Fold para o método Optimal Filtering (OF2 Otimizado):\n", attrs=["bold"])
@@ -46,7 +44,7 @@ titulo_programa = colored("Geração de arquivos de saída pela técnica de vali
 # Impressão do título do programa.
 print(titulo_programa)
 
-### --------------------------- 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO OF2 OTIMIZADO ------------------------------- ###
+### --------------------- 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO OF2 OTIMIZADO ------------------------ ###
 
 # Definição da instrução para salvar as médias dos dados estatísticos da validação cruzada K-Fold em arquivo de saída para o método OF2 otimizado.
 def arquivo_saida_dados_estatisticos_k_fold_erro_OF2_otimizado(parametro, n_ocupacao, n_janelamento, media_dado_erro, var_dado_erro, DP_dado_erro, dado):
@@ -69,33 +67,51 @@ def arquivo_saida_dados_estatisticos_k_fold_erro_OF2_otimizado(parametro, n_ocup
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+                    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{n_janelamento},{media_dado_erro},{var_dado_erro},{DP_dado_erro}\n")
+    
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### -------------------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO -------------------------------------- ###
+### ----------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO OF2 OTIMIZADO ---------------------------------- ###
 
 # Definição da instrução da técnica de validação cruzada K-Fold para o método OF2 otimizado.
 def K_fold_OF2_otimizado(parametro, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Janelado, vetor_parametro_referencia_janelado, valor_minimo_amplitude_estimada_processo_fase, vetor_amplitude_referencia_janelado):
@@ -218,11 +234,11 @@ def K_fold_OF2_otimizado(parametro, n_ocupacao, n_janelamento, Matriz_Pulsos_Sin
     # Salva a informação dos dados estatísticos do desvio padrão do erro de estimação do parâmetro em seus respectivos arquivos de saída.
     arquivo_saida_dados_estatisticos_k_fold_erro_OF2_otimizado(parametro, n_ocupacao, n_janelamento, media_DP_blocos_erro_estimacao_parametro, var_DP_blocos_erro_estimacao_parametro, DP_DP_blocos_erro_estimacao_parametro, dado = "DP")
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ### 
+### --------------------------------------------------------------------------------------------------------------------------------- ### 
 
-### ----------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------------- ###
+### --------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO -------------------------------------------------- ###
   
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_K_fold_OF2_otimizado():
     
     # A variável parametro_amplitude armazena a string "amplitude".
@@ -292,9 +308,9 @@ def principal_K_fold_OF2_otimizado():
             K_fold_OF2_otimizado(parametro_pedestal, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Pedestal_Janelado, vetor_pedestal_referencia_janelado, valor_minimo_amplitude_estimada_processo_fase = None, vetor_amplitude_referencia_janelado = None)
      
 # Chamada da instrução principal do código.
-principal_K_fold_OF2_otimizado()       
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+principal_K_fold_OF2_otimizado()
+       
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
-
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

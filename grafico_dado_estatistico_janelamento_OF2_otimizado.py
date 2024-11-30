@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Método do Filtro Ótimo Otimizado (Optimal Filtering - OF2 Otimizado).
 # Autor: Guilherme Barroso Morett.
-# Data: 03 de setembro de 2024.
+# Data: 25 de novembro de 2024.
 
 # Objetivo do código: gráfico dos dados estatísticos ao longo das ocupações de acordo com o janelamento para o método OF2 otimizado.
 
@@ -31,7 +31,7 @@ import os
 from termcolor import colored
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -41,7 +41,7 @@ titulo_programa = colored("Plote do gráfico do dado estatístico do erro de est
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ------ 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DE TODAS AS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO OF2 OTIMIZADO ----- ###
+### --- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DE TODAS AS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da função para a leitura dos dados estatísticos de todas as ocupações para um determinado janelamento pelo método OF2 otimizado.
 def leitura_dados_estatisticos_janelamento_OF2_otimizado(parametro, n_janelamento):
@@ -76,9 +76,9 @@ def leitura_dados_estatisticos_janelamento_OF2_otimizado(parametro, n_janelament
     # A função retorna a matriz Matriz_Dados_Estatisticos_Janelamento.
     return Matriz_Dados_Estatisticos_Janelamento
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### --- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO DADO ESTATÍSTICO AO LONGO DAS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO OF2 OTIMIZADO ---- ###
+### --- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO DADO ESTATÍSTICO AO LONGO DAS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO OF2 OTIMIZADO --- ###
 
 # Definição da instrução para o plote do gráfico do dado estatístico ao longo das ocupações para um determinado janelamento pelo método OF2 otimizado.
 def grafico_dado_estatistico_janelamento_OF2_otimizado(parametro, dado_estatistico, Matriz_Dados_Estatisticos_Janelamento):
@@ -92,7 +92,7 @@ def grafico_dado_estatistico_janelamento_OF2_otimizado(parametro, dado_estatisti
     # Definição da variável indice_coluna_var que armazena o valor do índice da coluna das variâncias.
     indice_coluna_var = 2
     
-    # Definição da variável indice_coluna_DP que armazena o valor do índice da coluna dos desvio padrão.
+    # Definição da variável indice_coluna_DP que armazena o valor do índice da coluna dos desvios padrão.
     indice_coluna_DP = 3
     
     # Definição do eixo das abscissas.
@@ -100,6 +100,8 @@ def grafico_dado_estatistico_janelamento_OF2_otimizado(parametro, dado_estatisti
     
     # Comando para o nome do eixo das abscissas.
     plt.xlabel("Ocupação (OC.)", fontsize = 18)
+    
+    # Comando que define o tamanho dos números do eixo das abscissas.
     plt.xticks(fontsize = 16)
     
     # Caso a variável dado_estatístico seja 1 (média).
@@ -184,11 +186,11 @@ def grafico_dado_estatistico_janelamento_OF2_otimizado(parametro, dado_estatisti
     # Comando para o plote.
     plt.show()
         
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###        
+### --------------------------------------------------------------------------------------------------------------------------------- ###        
         
-### ---------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO  ----------------------------------------------------- ###
+### -------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO  -------------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_grafico_dado_estatistico_janelamento_OF2_otimizado():
     
     # Impressão de mensagem no terminal.
@@ -205,7 +207,7 @@ def principal_grafico_dado_estatistico_janelamento_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -223,7 +225,7 @@ def principal_grafico_dado_estatistico_janelamento_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -262,7 +264,7 @@ def principal_grafico_dado_estatistico_janelamento_OF2_otimizado():
     
         # Exibição de uma mensagem de alerta de que a quantidade de janelamento solicitada é inválida.
         print("Quantidade de janelamento inválida! Opções de janelamento: 7, 9, 11, 13, 15, 17, 19.")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -274,6 +276,8 @@ def principal_grafico_dado_estatistico_janelamento_OF2_otimizado():
 # Chamada da instrução principal do código.
 principal_grafico_dado_estatistico_janelamento_OF2_otimizado()
 
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
     
